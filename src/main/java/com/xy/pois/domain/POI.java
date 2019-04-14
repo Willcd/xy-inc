@@ -7,10 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Negative;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 
 @Entity
 public class POI implements Serializable {
@@ -27,15 +26,14 @@ public class POI implements Serializable {
 	private String name;
 		
 	@Column(nullable = false)
-    @Min(0)
-	@Negative(message= "Informe um numero inteiro não negativo para a coordenada X!")
+	@PositiveOrZero(message= "Informe um numero inteiro não negativo para a coordenada X!")
 	private int x;
 	
 	@Column(nullable = false)
-	@Negative(message= "Informe um numero inteiro não negativo para a coordenada Y!")
-    @Min(0)
+	@PositiveOrZero(message= "Informe um numero inteiro não negativo para a coordenada Y!")
 	private int y;
-		
+	
+	
 	public String getName() {
 		return name;
 	}
@@ -58,6 +56,10 @@ public class POI implements Serializable {
 
 	public void setY(int y) {
 		this.y = y;
+	}
+
+	public Long getId() {
+		return id;
 	}	
 	
 }

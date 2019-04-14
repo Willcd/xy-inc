@@ -26,7 +26,6 @@ public class POIsController {
 	@Autowired
 	private POIsService poisService;
 	
-	
 	@RequestMapping(method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> add(@Valid @RequestBody POI poi, BindingResult result){
 		
@@ -46,22 +45,19 @@ public class POIsController {
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<?> findPOIs(
-			@RequestParam(value="xh", required = true) @PathVariable("xh")int xh,
-			@RequestParam(value="yh", required = true) @PathVariable("xh")int yh,
-			@RequestParam(value="distance", required = true) @PathVariable("xh")int distance			
+			@RequestParam(value="x", required = true) @PathVariable("x")int x,
+			@RequestParam(value="y", required = true) @PathVariable("y")int y,
+			@RequestParam(value="d-max", required = true) @PathVariable("dmax")int dmax			
 		){
-		System.out.println(xh);
-		System.out.println(yh);
-		
-		List <POI> nearbyPOIs = poisService.findNearbyPoints(xh, yh , distance);
-		System.out.println(nearbyPOIs);
+		List <POI> nearbyPOIs = poisService.findNearbyPoints(x, y , dmax);
 		for(POI poi : nearbyPOIs) {
 			System.out.println(poi.getName());
 		}
 		if(nearbyPOIs.isEmpty()) {
-			return new ResponseEntity<String>("Não foram encontrados pontos proximos.",HttpStatus.NO_CONTENT);
+			String noPois = "Não foi encontrado pontos proximos.";
+			return new ResponseEntity<String>(noPois, HttpStatus.OK);
 		}
 	  	return new ResponseEntity<List<POI>>(nearbyPOIs, HttpStatus.OK);
-
 	}
+	
 }

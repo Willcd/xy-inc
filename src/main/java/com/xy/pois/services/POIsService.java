@@ -29,14 +29,18 @@ public class POIsService {
 		return poisRepository.findAll();
 	}
 	
-	public List<POI> findNearbyPoints(int xh, int yh, int distance){
-		String comand = "SELECT * FROM poi p where (SELECT ST_Distance( point(p.x,p.y),point("+xh+","+yh+"))) <= "+ distance +";";
-		System.out.println("service");
+	public List<POI> findNearbyPoints(int x, int y, int dmax){
+		
+		String comand = "SELECT * FROM poi p where ( "
+				+ " SELECT ST_Distance( "
+				+ " point(p.x, p.y), "
+				+ " point(" + x + "," + y + ") "
+				+ " )) <= " + dmax + " ; ";
+		
 		Query query = entityManager.createNativeQuery(comand, POI.class);
-		System.out.println(comand + " create query: " + query.toString());
+		
 		@SuppressWarnings("unchecked")
 		List<POI> nearbyPoints = query.getResultList();
-		System.out.println("query success! " + nearbyPoints);
 		return nearbyPoints;
 	}
 }
