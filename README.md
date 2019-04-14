@@ -85,7 +85,7 @@ Run As -> Spring Boot App
 
 ##
 
-### É possível executar/testar os serviços utilizando um client HTTP.  
+### Uso dos serviços
 
 POST -`` localhost:8080/xypois``
  
