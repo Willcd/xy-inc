@@ -47,8 +47,7 @@ public class POIsControllerTest {
 	@Test
 	public void f_findNearbyPOIsControllerTest() throws Exception {
 		this.mockMvc.perform(MockMvcRequestBuilders.get("/xypois/?x=20&y=10&d-max=10"))
-		.andExpect(status().is2xxSuccessful())
-		.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));		
+		.andExpect(status().is2xxSuccessful());		
 	}
 
 }
